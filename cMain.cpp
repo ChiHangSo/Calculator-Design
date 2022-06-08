@@ -23,7 +23,7 @@ wxEND_EVENT_TABLE()
 
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(50, 50), wxSize(350, 425))
 {
-	list = new wxListBox(this, wxID_ANY, wxPoint(10, 310), wxSize(315, 45));
+	//list = new wxListBox(this, wxID_ANY, wxPoint(10, 310), wxSize(315, 45));
 	btn1 = new wxButton(this, 1, "1", wxPoint(10, 130), wxSize(45, 50));
 	btn2 = new wxButton(this, 2, "2", wxPoint(10, 170), wxSize(45, 50));
 	btn3 = new wxButton(this, 3, "3", wxPoint(10, 210), wxSize(45, 50));
@@ -36,7 +36,7 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(50, 50), wxSiz
 	btn0 = new wxButton(this, 0, "0", wxPoint(10, 250), wxSize(90, 50));
 	btnComma = new wxButton(this, wxID_ANY, ",", wxPoint(100, 250), wxSize(45, 50));
 
-	btn1 = new wxButton(this, wxID_ANY, "", wxPoint(10, 80), wxSize(45, 50));
+	//btn = new wxButton(this, wxID_ANY, "", wxPoint(10, 80), wxSize(45, 50));
 	btnRestart = new wxButton(this, 11, "AC", wxPoint(55, 80), wxSize(45, 50)); //Restart button
 	btnMod = new wxButton(this, 12, "%", wxPoint(100, 80), wxSize(45, 50));	//Mod button
 	btnDiv = new wxButton(this, 13, "÷", wxPoint(145, 80), wxSize(45, 50));	//Divide button
@@ -45,13 +45,13 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(50, 50), wxSiz
 	btnPlus = new wxButton(this, 16, "+", wxPoint(145, 210), wxSize(45, 50)); //Plus button
 	btnEqual = new wxButton(this, 18, "=", wxPoint(145, 250), wxSize(45, 50));
 
-	btn0 = new wxButton(this, wxID_ANY, "", wxPoint(210, 80), wxSize(65, 50));
+	//btn0 = new wxButton(this, wxID_ANY, "", wxPoint(210, 80), wxSize(65, 50));
 	btnBinary = new wxButton(this, wxID_ANY, "Binary", wxPoint(210, 130), wxSize(65, 50));
 	btnHex = new wxButton(this, wxID_ANY, "Hex", wxPoint(210, 170), wxSize(65, 50));
 	btnDecimal = new wxButton(this, wxID_ANY, "Decimal", wxPoint(210, 210), wxSize(65, 50));
 	btnNegative = new wxButton(this, 17, "Negative", wxPoint(210, 250), wxSize(65, 50));
 	
-	//text = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 10), wxSize(315, 60));
+	text = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 10), wxSize(315, 60));
 }
 
 cMain::~cMain()
@@ -62,25 +62,67 @@ cMain::~cMain()
 void cMain::OnButtonClicked(wxCommandEvent &evt)
 {
 	int id = evt.GetId();
-	int value = -1;
 
-	if (id < 10)
-	{
-
-	}
-	else if (id == 17)
-	{
-
-	}
-
-	switch (value)
+	switch (id)
 	{
 	case 1:
+		text->AppendText(btn1->GetLabel());
 		break;
 	case 2:
+		text->AppendText(btn2->GetLabel());
+		break;
+	case 3:
+		text->AppendText(btn3->GetLabel());
+		break;
+	case 4:
+		text->AppendText(btn4->GetLabel());
+		break;
+	case 5:
+		text->AppendText(btn5->GetLabel());
+		break;
+	case 6:
+		text->AppendText(btn6->GetLabel());
+		break;
+	case 7:
+		text->AppendText(btn7->GetLabel());
+		break;
+	case 8:
+		text->AppendText(btn8->GetLabel());
+		break;
+	case 9:
+		text->AppendText(btn9->GetLabel());
+		break;
+	case 0:
+		text->AppendText(btn0->GetLabel());
+		break;
+
+	case 11:
+		text->Clear();
+		break;
+	case 12:
+		text->AppendText(btnMod->GetLabel());
+		break;
+	case 13:
+		text->AppendText(btnDiv->GetLabel());
+		break;
+	case 14:
+		text->AppendText(btnMulti->GetLabel());
+		break;
+	case 15:
+		text->AppendText(btnNega->GetLabel());
+		break;
+	case 16:
+		text->AppendText(btnPlus->GetLabel());
+		break;
+	case 17:
+		text->AppendText(btnNegative->GetLabel());
+		break;
+	case 18:
+		
 		break;
 	}
-	text->AppendText(std::to_string(evt.GetId()));
+
+
 
 	evt.Skip();
 }

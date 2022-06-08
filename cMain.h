@@ -1,5 +1,6 @@
 #pragma once
 #include "wx/wx.h"
+#include <string>
 
 class cMain : public wxFrame
 {
@@ -33,6 +34,9 @@ public:
 	
 	wxTextCtrl *text = nullptr;
 	wxListBox *list = nullptr;
+
+public:
+	void OnButtonClicked(wxCommandEvent &evt);
 
 	wxDECLARE_EVENT_TABLE();
 

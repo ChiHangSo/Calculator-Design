@@ -23,33 +23,35 @@ wxEND_EVENT_TABLE()
 
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(50, 50), wxSize(350, 425))
 {
+	ButtonFactory Factory;
 	//list = new wxListBox(this, wxID_ANY, wxPoint(10, 310), wxSize(315, 45));
-	btn1 = new wxButton(this, 1, "1", wxPoint(10, 130), wxSize(45, 50));
-	btn2 = new wxButton(this, 2, "2", wxPoint(10, 170), wxSize(45, 50));
-	btn3 = new wxButton(this, 3, "3", wxPoint(10, 210), wxSize(45, 50));
-	btn4 = new wxButton(this, 4, "4", wxPoint(55, 130), wxSize(45, 50));
-	btn5 = new wxButton(this, 5, "5", wxPoint(55, 170), wxSize(45, 50));
-	btn6 = new wxButton(this, 6, "6", wxPoint(55, 210), wxSize(45, 50));
-	btn7 = new wxButton(this, 7, "7", wxPoint(100, 130), wxSize(45, 50));
-	btn8 = new wxButton(this, 8, "8", wxPoint(100, 170), wxSize(45, 50));
-	btn9 = new wxButton(this, 9, "9", wxPoint(100, 210), wxSize(45, 50));
-	btn0 = new wxButton(this, 0, "0", wxPoint(10, 250), wxSize(90, 50));
-	btnComma = new wxButton(this, wxID_ANY, ",", wxPoint(100, 250), wxSize(45, 50));
+	btn1 = Factory.CreateButton(this, 1, '1', 10, 130, 45, 50);
+	btn2 = Factory.CreateButton(this, 2, '2', 10, 170, 45, 50);
+	btn3 = Factory.CreateButton(this, 3, '3', 10, 210, 45, 50);
+	btn4 = Factory.CreateButton(this, 4, '4', 55, 130, 45, 50);
+	btn5 = Factory.CreateButton(this, 5, '5', 55, 170, 45, 50);
+	btn6 = Factory.CreateButton(this, 6, '6', 55, 210, 45, 50);
+	btn7 = Factory.CreateButton(this, 7, '7', 100, 130, 45, 50);
+	btn8 = Factory.CreateButton(this, 8, '8', 100, 170, 45, 50);
+	btn9 = Factory.CreateButton(this, 9, '9', 100, 210, 45, 50);
+	btn0 = Factory.CreateButton(this, 0, '0', 10, 250, 90, 50);
+	btnComma = Factory.CreateButton(this, wxID_ANY, ',', 100, 250, 45, 50);
 
 	//btn = new wxButton(this, wxID_ANY, "", wxPoint(10, 80), wxSize(45, 50));
-	btnRestart = new wxButton(this, 11, "AC", wxPoint(55, 80), wxSize(45, 50)); //Restart button
-	btnMod = new wxButton(this, 12, "%", wxPoint(100, 80), wxSize(45, 50));	//Mod button
-	btnDiv = new wxButton(this, 13, "÷", wxPoint(145, 80), wxSize(45, 50));	//Divide button
-	btnMulti = new wxButton(this, 14, "x", wxPoint(145, 130), wxSize(45, 50));	//Multiply button
-	btnNega = new wxButton(this, 15, "-", wxPoint(145, 170), wxSize(45, 50)); //Substract button
-	btnPlus = new wxButton(this, 16, "+", wxPoint(145, 210), wxSize(45, 50)); //Plus button
-	btnEqual = new wxButton(this, 18, "=", wxPoint(145, 250), wxSize(45, 50));
+	btnRestart = Factory.CreateButton(this, 11, "AC", 55, 80, 45, 50); //Restart button
+	btnMod = Factory.CreateButton(this, 12, '%', 100, 80, 45, 50);	//Mod button
+	btnDiv = Factory.CreateButton(this, 13, '÷', 145, 80, 45, 50);	//Divide button
+	btnMulti = Factory.CreateButton(this, 14, 'x',145, 130, 45, 50);	//Multiply button
+	btnNega = Factory.CreateButton(this, 15, '-', 145, 170, 45, 50); //Substract button
+	btnPlus = Factory.CreateButton(this, 16, '+', 145, 210,45, 50); //Plus button
+	btnEqual = Factory.CreateButton(this, 18, '=',145, 250, 45, 50); //Equal button
 
 	//btn0 = new wxButton(this, wxID_ANY, "", wxPoint(210, 80), wxSize(65, 50));
-	btnBinary = new wxButton(this, wxID_ANY, "Binary", wxPoint(210, 130), wxSize(65, 50));
-	btnHex = new wxButton(this, wxID_ANY, "Hex", wxPoint(210, 170), wxSize(65, 50));
-	btnDecimal = new wxButton(this, wxID_ANY, "Decimal", wxPoint(210, 210), wxSize(65, 50));
-	btnNegative = new wxButton(this, 17, "Negative", wxPoint(210, 250), wxSize(65, 50));
+	btnBinary = Factory.CreateButton(this, wxID_ANY, "Binary", 210, 130, 65, 50);
+	btnHex = Factory.CreateButton(this, wxID_ANY, "Hex", 210, 170, 65, 50);
+	btnDecimal = Factory.CreateButton(this, wxID_ANY, "Decimal", 210, 210, 65, 50);
+	btnNegative = Factory.CreateButton (this, 17, "Negative", 210, 250, 65, 50);
+
 	
 	text = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 10), wxSize(315, 60));
 }
@@ -63,6 +65,7 @@ void cMain::OnButtonClicked(wxCommandEvent &evt)
 {
 	int id = evt.GetId();
 
+	//evt.GetEventObject();
 	switch (id)
 	{
 	case 1:
@@ -118,7 +121,7 @@ void cMain::OnButtonClicked(wxCommandEvent &evt)
 		text->AppendText(btnNegative->GetLabel());
 		break;
 	case 18:
-		
+		text->AppendText(btnEqual->GetLabel());
 		break;
 	}
 

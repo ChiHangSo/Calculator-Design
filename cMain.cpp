@@ -1,24 +1,28 @@
 #include "cMain.h"
 
 wxBEGIN_EVENT_TABLE(cMain, wxFrame)
-	EVT_BUTTON(0, OnButtonClicked)
-	EVT_BUTTON(1, OnButtonClicked)
-	EVT_BUTTON(2, OnButtonClicked)
-	EVT_BUTTON(3, OnButtonClicked)
-	EVT_BUTTON(4, OnButtonClicked)
-	EVT_BUTTON(5, OnButtonClicked)
-	EVT_BUTTON(6, OnButtonClicked)
-	EVT_BUTTON(7, OnButtonClicked)
-	EVT_BUTTON(8, OnButtonClicked)
-	EVT_BUTTON(9, OnButtonClicked)
-	EVT_BUTTON(11, OnButtonClicked) //Restart button
-	EVT_BUTTON(12, OnButtonClicked)	//Mod button
-	EVT_BUTTON(13, OnButtonClicked)	//Divide button
-	EVT_BUTTON(14, OnButtonClicked) //Multiply button
-	EVT_BUTTON(15, OnButtonClicked)	//Substract button
-	EVT_BUTTON(16, OnButtonClicked)	//Plus button
-	EVT_BUTTON(17, OnButtonClicked) //Negative button
-	EVT_BUTTON(18, OnButtonClicked)	//Equal button
+EVT_BUTTON(0, OnButtonClicked)
+EVT_BUTTON(1, OnButtonClicked)
+EVT_BUTTON(2, OnButtonClicked)
+EVT_BUTTON(3, OnButtonClicked)
+EVT_BUTTON(4, OnButtonClicked)
+EVT_BUTTON(5, OnButtonClicked)
+EVT_BUTTON(6, OnButtonClicked)
+EVT_BUTTON(7, OnButtonClicked)
+EVT_BUTTON(8, OnButtonClicked)
+EVT_BUTTON(9, OnButtonClicked)
+EVT_BUTTON(11, OnButtonClicked) //Restart button
+EVT_BUTTON(12, OnButtonClicked)	//Mod button
+EVT_BUTTON(13, OnButtonClicked)	//Divide button
+EVT_BUTTON(14, OnButtonClicked) //Multiply button
+EVT_BUTTON(15, OnButtonClicked)	//Substract button
+EVT_BUTTON(16, OnButtonClicked)	//Plus button
+EVT_BUTTON(17, OnButtonClicked) //Negative button
+EVT_BUTTON(18, OnButtonClicked)	//Equal button
+EVT_BUTTON(19, OnButtonClicked) //Decimal button
+EVT_BUTTON(20, OnButtonClicked) //Binary button
+EVT_BUTTON(21, OnButtonClicked)	//Hexadecimal button
+
 wxEND_EVENT_TABLE()
 
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(50, 50), wxSize(350, 425))

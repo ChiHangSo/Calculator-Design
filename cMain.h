@@ -2,9 +2,17 @@
 #include "wx/wx.h"
 #include <string>
 #include "ButtonFactory.h"
+#include "CalculatorProcessor.h"
+#include <vector>
 
 class cMain : public wxFrame
 {
+private:
+	std::string numbers1;
+	std::string numbers2;
+	bool operators = false;
+	std::string character;
+
 public:
 	cMain();
 	~cMain();

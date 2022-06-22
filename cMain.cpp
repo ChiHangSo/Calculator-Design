@@ -21,7 +21,7 @@ EVT_BUTTON(17, OnButtonClicked) //Negative button
 EVT_BUTTON(18, OnButtonClicked)	//Equal button
 EVT_BUTTON(19, OnButtonClicked) //Decimal button
 EVT_BUTTON(20, OnButtonClicked) //Binary button
-EVT_BUTTON(21, OnButtonClicked)	//Hexadecimal button
+EVT_BUTTON(21, OnButtonClicked)	//Hexadecimal buttony
 
 wxEND_EVENT_TABLE()
 
@@ -44,8 +44,8 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(50, 50), wxSiz
 	//btn = new wxButton(this, wxID_ANY, "", wxPoint(10, 80), wxSize(45, 50));
 	btnRestart = Factory.CreateButton(this, 11, "AC", 55, 80, 45, 50); //Restart button
 	btnMod = Factory.CreateButton(this, 12, '%', 100, 80, 45, 50);	//Mod button
-	btnDiv = Factory.CreateButton(this, 13, '÷', 145, 80, 45, 50);	//Divide button
-	btnMulti = Factory.CreateButton(this, 14, 'x',145, 130, 45, 50);	//Multiply button
+	btnDiv = Factory.CreateButton(this, 13, '/', 145, 80, 45, 50);	//Divide button
+	btnMulti = Factory.CreateButton(this, 14, 'X',145, 130, 45, 50);	//Multiply button
 	btnNega = Factory.CreateButton(this, 15, '-', 145, 170, 45, 50); //Substract button
 	btnPlus = Factory.CreateButton(this, 16, '+', 145, 210,45, 50); //Plus button
 	btnEqual = Factory.CreateButton(this, 18, '=',145, 250, 45, 50); //Equal button
@@ -68,68 +68,68 @@ cMain::~cMain()
 void cMain::OnButtonClicked(wxCommandEvent &evt)
 {
 	int id = evt.GetId();
+	CalculatorProcessor* operations = CalculatorProcessor::GetInstance();
+	
+	wxButton* pButton = dynamic_cast<wxButton*>(evt.GetEventObject());
 
-	//evt.GetEventObject();
-	switch (id)
+	if (pButton != nullptr)
 	{
-	case 1:
-		text->AppendText(btn1->GetLabel());
-		break;
-	case 2:
-		text->AppendText(btn2->GetLabel());
-		break;
-	case 3:
-		text->AppendText(btn3->GetLabel());
-		break;
-	case 4:
-		text->AppendText(btn4->GetLabel());
-		break;
-	case 5:
-		text->AppendText(btn5->GetLabel());
-		break;
-	case 6:
-		text->AppendText(btn6->GetLabel());
-		break;
-	case 7:
-		text->AppendText(btn7->GetLabel());
-		break;
-	case 8:
-		text->AppendText(btn8->GetLabel());
-		break;
-	case 9:
-		text->AppendText(btn9->GetLabel());
-		break;
-	case 0:
-		text->AppendText(btn0->GetLabel());
-		break;
+		text->AppendText(pButton->GetLabel());
 
-	case 11:
-		text->Clear();
-		break;
-	case 12:
-		text->AppendText(btnMod->GetLabel());
-		break;
-	case 13:
-		text->AppendText(btnDiv->GetLabel());
-		break;
-	case 14:
-		text->AppendText(btnMulti->GetLabel());
-		break;
-	case 15:
-		text->AppendText(btnNega->GetLabel());
-		break;
-	case 16:
-		text->AppendText(btnPlus->GetLabel());
-		break;
-	case 17:
-		text->AppendText(btnNegative->GetLabel());
-		break;
-	case 18:
-		text->AppendText(btnEqual->GetLabel());
-		break;
+		if (pButton->GetId() == 11)
+		{
+			text->Clear();
+			numbers1.clear();
+			numbers2.clear();
+		}
+
+		if (pButton->GetId() >= 0 && pButton->GetId() <= 9)
+		{
+			if (operators != true)
+				numbers1 += pButton->GetLabel();
+			else
+				numbers2 += pButton->GetLabel();
+				
+		}
+
+		if (pButton->GetId() >= 12 && pButton->GetId() <= 16)
+		{
+			operators = true;
+			character = pButton->GetLabel();
+		}
+		// Make sure to put an error when you don't have a number and have a operator on the screen
+		//else if()
+
+		wxString info = text->GetValue();
+		if (pButton->GetId() == 18)
+		{
+			text->Clear();
+			
+			if (character == '+')
+			{
+				text->AppendText(operations->GetAdd(stoi(numbers1),stoi(numbers2)));
+			}
+			else if (character == '-')
+			{
+				text->AppendText(operations->GetSubs(stoi(numbers1), stoi(numbers2)));
+			}
+			else if (character == 'X')
+			{
+				text->AppendText(operations->GetMulti(stoi(numbers1), stoi(numbers2)));
+			}
+			else if (character == '/')
+			{
+				text->AppendText(operations->GetDiv(stoi(numbers1), stoi(numbers2)));
+			}
+			operators = false;
+		}
+
 	}
 
 
+
+//TEST_METHOD()
+//ASERT::AREEUQAL / ARENOTEQUAL
 
 	evt.Skip();
 }

@@ -1,6 +1,5 @@
 #include "CalculatorProcessor.h"
 #include <iostream>
-
 CalculatorProcessor* CalculatorProcessor::GetInstance()
 {
 	if (_processor == nullptr)
@@ -71,3 +70,4 @@ std::string CalculatorProcessor::GetHexadecimal()
 
 	return results;
 }
+CalculatorProcessor* CalculatorProcessor::_processor = nullptr;

@@ -1,8 +1,8 @@
 #pragma once
 #include "wx/wx.h"
-#include <string>
-#include "ButtonFactory.h"
 #include "CalculatorProcessor.h"
+#include "ButtonFactory.h"
+#include <string>
 #include <vector>
 
 class cMain : public wxFrame
@@ -12,6 +12,7 @@ private:
 	std::string numbers2;
 	bool operators = false;
 	std::string character;
+
 
 public:
 	cMain();

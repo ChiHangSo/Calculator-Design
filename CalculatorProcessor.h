@@ -9,14 +9,20 @@ class CalculatorProcessor
 private:
 	static CalculatorProcessor* _processor;
 	int baseNumber;
-	int baseNumber2;
-	CalculatorProcessor()
-	{
-
-	};
-
+	int _answer;
 
 public:
+	CalculatorProcessor() {	}
+	
+	int GetAnswer()
+	{
+		return _answer;
+	}
+
+	void SetAnswer(int answer)
+	{
+		_answer = answer;
+	}
 	static CalculatorProcessor* GetInstance()
 	{
 		if (_processor == nullptr)
@@ -25,10 +31,11 @@ public:
 		}
 		return _processor;
 	};
+
 	void SetBaseNumber(int number)
 	{
 		baseNumber = number;
-	};
+	}
 
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
 	void operator=(const CalculatorProcessor& other) = delete;
@@ -36,7 +43,7 @@ public:
 	std::string GetDecimal()
 	{
 		return std::to_string(baseNumber);
-	};
+	}
 
 	std::string GetHexadecimal()
 	{
@@ -71,7 +78,7 @@ public:
 		results = "0x" + results;
 
 		return results;
-	};
+	}
 
 	std::string GetBinary()
 	{
@@ -87,34 +94,28 @@ public:
 			number = number / 2;
 		}
 		return results;
-
-	};
+	}
 	
-	std::string GetAdd(int a, int b)
+	int GetAdd(int a, int b)
 	{
-		std::string Add = std::to_string(a + b);
-		return Add;
-		//Add.clear();
-	};
-	std::string GetSubs(int a, int b)
+		return a + b;
+	}
+	int GetSubs(int a, int b)
 	{
-		std::string Negative = std::to_string(a - b);
-		return Negative;
-	};
+		return a - b;
+	}
 
-	std::string GetMulti(int a, int b)
+	int GetMulti(int a, int b)
 	{
-		std::string Multi = std::to_string(a * b);
-		return Multi;
+		return a * b;
+	}
 
-	};
-
-	std::string GetDiv(int a, int b)
+	int GetDiv(int a, int b)
 	{
-		std::string Div = std::to_string(a / b);
-		return Div;
-	};
+		return a / b;
+	}
 
 
 
 };
+

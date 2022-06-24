@@ -1,5 +1,11 @@
 #include "cMain.h"
 
+#include "IBaseCommand.h"
+#include "Addition.h"
+#include "Substraction.h"
+#include "Multiplication.h"
+#include "Division.h"
+
 wxBEGIN_EVENT_TABLE(cMain, wxFrame)
 EVT_BUTTON(0, OnButtonClicked)
 EVT_BUTTON(1, OnButtonClicked)
@@ -19,9 +25,11 @@ EVT_BUTTON(15, OnButtonClicked)	//Substract button
 EVT_BUTTON(16, OnButtonClicked)	//Plus button
 EVT_BUTTON(17, OnButtonClicked) //Negative button
 EVT_BUTTON(18, OnButtonClicked)	//Equal button
+
 EVT_BUTTON(19, OnButtonClicked) //Decimal button
 EVT_BUTTON(20, OnButtonClicked) //Binary button
 EVT_BUTTON(21, OnButtonClicked)	//Hexadecimal buttony
+
 
 wxEND_EVENT_TABLE()
 
@@ -51,9 +59,9 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(50, 50), wxSiz
 	btnEqual = Factory.CreateButton(this, 18, '=',145, 250, 45, 50); //Equal button
 
 	//btn0 = new wxButton(this, wxID_ANY, "", wxPoint(210, 80), wxSize(65, 50));
-	btnBinary = Factory.CreateButton(this, wxID_ANY, "Binary", 210, 130, 65, 50);
-	btnHex = Factory.CreateButton(this, wxID_ANY, "Hex", 210, 170, 65, 50);
-	btnDecimal = Factory.CreateButton(this, wxID_ANY, "Decimal", 210, 210, 65, 50);
+	btnDecimal = Factory.CreateButton(this, 19, "Decimal", 210, 210, 65, 50);
+	btnBinary = Factory.CreateButton(this, 20, "Binary", 210, 130, 65, 50);
+	btnHex = Factory.CreateButton(this, 21, "Hex", 210, 170, 65, 50);
 	btnNegative = Factory.CreateButton (this, 17, "Negative", 210, 250, 65, 50);
 
 	
@@ -68,8 +76,8 @@ cMain::~cMain()
 void cMain::OnButtonClicked(wxCommandEvent &evt)
 {
 	int id = evt.GetId();
+
 	CalculatorProcessor* operations = CalculatorProcessor::GetInstance();
-	
 	wxButton* pButton = dynamic_cast<wxButton*>(evt.GetEventObject());
 
 	if (pButton != nullptr)
@@ -100,6 +108,8 @@ void cMain::OnButtonClicked(wxCommandEvent &evt)
 		// Make sure to put an error when you don't have a number and have a operator on the screen
 		//else if()
 
+		std::vector<IBaseCommand*> commands;
+
 		wxString info = text->GetValue();
 		if (pButton->GetId() == 18)
 		{
@@ -107,23 +117,58 @@ void cMain::OnButtonClicked(wxCommandEvent &evt)
 			
 			if (character == '+')
 			{
-				text->AppendText(operations->GetAdd(stoi(numbers1),stoi(numbers2)));
+				Addition addition(operations, stoi(numbers1), stoi(numbers2));
+				commands.push_back(&addition);
 			}
 			else if (character == '-')
 			{
-				text->AppendText(operations->GetSubs(stoi(numbers1), stoi(numbers2)));
+				Substraction sub(operations, stoi(numbers1), stoi(numbers2));
+				commands.push_back(&sub);
 			}
 			else if (character == 'X')
 			{
-				text->AppendText(operations->GetMulti(stoi(numbers1), stoi(numbers2)));
+				Multiplication multi(operations, stoi(numbers1), stoi(numbers2));
+				commands.push_back(&multi);
 			}
 			else if (character == '/')
 			{
-				text->AppendText(operations->GetDiv(stoi(numbers1), stoi(numbers2)));
+				Division div(operations, stoi(numbers1), stoi(numbers2));
+				commands.push_back(&div);
 			}
+
+			for (int i = 0; i < commands.size(); i++)
+			{
+				commands[i]->execute();
+				commands.clear();
+			}
+			text->AppendText(std::to_string(operations->GetAnswer()));
 			operators = false;
 		}
 
+		if (pButton->GetId() == 19)
+		{
+			text->Clear();
+			operations->SetBaseNumber(operations->GetAnswer());
+			text->AppendText(operations->GetDecimal());
+		}
+		if (pButton->GetId() == 20)
+		{
+			text->Clear();
+			operations->SetBaseNumber(operations->GetAnswer());
+			text->AppendText(operations->GetBinary());
+		}
+		if (pButton->GetId() == 21)
+		{
+			text->Clear();
+			operations->SetBaseNumber(operations->GetAnswer());
+			text->AppendText(operations->GetHexadecimal());
+		}
+		if (pButton->GetId() == 17)
+		{
+			text->Clear();
+			operations->SetBaseNumber(operations->GetAnswer());
+			//text->AppendText(operations.)
+		}
 	}
 
 

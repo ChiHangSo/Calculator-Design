@@ -19,6 +19,8 @@ public:
 	~cMain();
 
 public:
+	wxButton* btnfiller = nullptr;
+	wxButton* btnfiller2 = nullptr;
 	wxButton *btn0 = nullptr;
 	wxButton *btn1 = nullptr;
 	wxButton *btn2 = nullptr;

@@ -49,7 +49,7 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(50, 50), wxSiz
 	btn0 = Factory.CreateButton(this, 0, '0', 10, 250, 90, 50);
 	btnComma = Factory.CreateButton(this, wxID_ANY, ',', 100, 250, 45, 50);
 
-	//btn = new wxButton(this, wxID_ANY, "", wxPoint(10, 80), wxSize(45, 50));
+	btnfiller = Factory.CreateButton(this, wxID_ANY, "", 10, 80, 45, 50);
 	btnRestart = Factory.CreateButton(this, 11, "AC", 55, 80, 45, 50); //Restart button
 	btnMod = Factory.CreateButton(this, 12, '%', 100, 80, 45, 50);	//Mod button
 	btnDiv = Factory.CreateButton(this, 13, '/', 145, 80, 45, 50);	//Divide button
@@ -58,7 +58,7 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(50, 50), wxSiz
 	btnPlus = Factory.CreateButton(this, 16, '+', 145, 210,45, 50); //Plus button
 	btnEqual = Factory.CreateButton(this, 18, '=',145, 250, 45, 50); //Equal button
 
-	//btn0 = new wxButton(this, wxID_ANY, "", wxPoint(210, 80), wxSize(65, 50));
+	btnfiller2 = Factory.CreateButton(this, wxID_ANY, "", 210, 80, 65, 50);
 	btnDecimal = Factory.CreateButton(this, 19, "Decimal", 210, 210, 65, 50);
 	btnBinary = Factory.CreateButton(this, 20, "Binary", 210, 130, 65, 50);
 	btnHex = Factory.CreateButton(this, 21, "Hex", 210, 170, 65, 50);
@@ -98,6 +98,28 @@ void cMain::OnButtonClicked(wxCommandEvent &evt)
 			else
 				numbers2 += pButton->GetLabel();
 				
+			operations->SetBaseNumber(wxAtoi(text->GetValue()));
+
+			// This button is for decimal
+			if (pButton->GetId() == 19)
+			{
+				text->Clear();
+				text->AppendText(operations->GetDecimal());
+			}
+
+			// This button is for Binary
+			if (pButton->GetId() == 20)
+			{
+				text->Clear();
+				text->AppendText(operations->GetBinary());
+			}
+
+			//This button is for Hexadecimal
+			if (pButton->GetId() == 21)
+			{
+				text->Clear();
+				text->AppendText(operations->GetHexadecimal());
+			}
 		}
 
 		if (pButton->GetId() >= 12 && pButton->GetId() <= 16)
@@ -143,31 +165,36 @@ void cMain::OnButtonClicked(wxCommandEvent &evt)
 			}
 			text->AppendText(std::to_string(operations->GetAnswer()));
 			operators = false;
+
+			operations->SetBaseNumber(wxAtoi(text->GetValue()));
 		}
 
+		// This button is for decimal
 		if (pButton->GetId() == 19)
 		{
 			text->Clear();
-			operations->SetBaseNumber(operations->GetAnswer());
 			text->AppendText(operations->GetDecimal());
 		}
+
+		// This button is for Binary
 		if (pButton->GetId() == 20)
 		{
 			text->Clear();
-			operations->SetBaseNumber(operations->GetAnswer());
 			text->AppendText(operations->GetBinary());
 		}
+
+		//This button is for Hexadecimal
 		if (pButton->GetId() == 21)
 		{
 			text->Clear();
-			operations->SetBaseNumber(operations->GetAnswer());
 			text->AppendText(operations->GetHexadecimal());
 		}
+
+		//This button is for negative
 		if (pButton->GetId() == 17)
 		{
 			text->Clear();
-			operations->SetBaseNumber(operations->GetAnswer());
-			//text->AppendText(operations.)
+
 		}
 	}
 
